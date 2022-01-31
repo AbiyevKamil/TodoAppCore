@@ -2,7 +2,7 @@
 
 namespace TodoAppCore.Entities
 {
-    public class Note
+    public class Todo
     {
         public int Id { get; set; }
         [Required]
@@ -12,6 +12,7 @@ namespace TodoAppCore.Entities
         [Required]
         public DateTime CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsCompleted { get; set; }
 
         [Required]
         public string AppUserId { get; set; }

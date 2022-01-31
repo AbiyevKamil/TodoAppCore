@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using TodoAppCore.Entities;
 
 namespace TodoAppCore.Core.IRepositories
 {
     public interface IUserRepository : IGenericRepository<AppUser>
     {
-        Task<IdentityResult> CreateAsync(AppUser user);
-        Task<IdentityResult> LoginAsync(AppUser user);
-        Task<IdentityResult> Logout();
+        Task<IdentityResult> CreateAsync(AppUser user, string password);
+        Task<AppUser> GetUser(ClaimsPrincipal claims);
 
-        Task<AppUser> GetUser(string id);
-
-        Task<IEnumerable<Task>> GetUserTasks(AppUser user);
+        Task<IEnumerable<Todo>> GetUserTasks(AppUser user);
     }
 }

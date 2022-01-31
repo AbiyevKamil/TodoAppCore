@@ -3,17 +3,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*@if (!User.Identity.IsAuthenticated)
-    {
+@if (!User.Identity.IsAuthenticated)
+{
     <div class="text-center">
     <h1 class="display-4">Welcome to Note App</h1>
     <p>
     <a asp-controller="Account" asp-action="Register" >Register</a> and start to use app.
     </p>
     </div>
-    }*@
-@*else
-    {*@
+}
+else
+{
     <div>
     @*<form>
         <div class="form-group">
@@ -56,5 +56,5 @@
 
     </div>
 
-@*}*@
+}
 

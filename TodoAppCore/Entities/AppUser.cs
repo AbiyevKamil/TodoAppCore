@@ -4,6 +4,6 @@ namespace TodoAppCore.Entities
 {
     public class AppUser : IdentityUser
     {
-        public List<Note> Notes { get; set; }
+        public List<Todo> Todos { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace TodoAppCore.Core.IConfiguration
 {
     public interface IUnitOfWork
     {
-        public INoteRepository Notes { get; }
+        public ITodoRepository Todos { get; }
         public IUserRepository Users { get; }
 
         public Task CompleteAsync();
