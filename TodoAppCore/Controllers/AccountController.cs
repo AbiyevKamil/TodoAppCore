@@ -80,6 +80,7 @@ namespace TodoAppCore.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
