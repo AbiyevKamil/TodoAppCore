@@ -23,18 +23,16 @@ namespace TodoAppCore.Controllers
             var user = await _unit.Users.GetUser(User);
             if (user != null)
             {
-                ViewData["User"] = user.Email;
                 var todos = await _unit.Users.GetUserTasks(user);
                 var model = new HomeModel()
                 {
-                    Todos = todos
+                    Todos = todos.Where(i => !i.IsDeleted).OrderByDescending(i => i.CreatedDate)
                 };
                 return View(model);
             }
 
             return View();
         }
-        [Authorize]
         public IActionResult Privacy()
         {
             return View();

@@ -17,6 +17,40 @@ namespace TodoAppCore.Core.Repositories
             return task;
         }
 
+        public virtual async Task<bool> DeleteById(int id, AppUser user)
+        {
+            try
+            {
+                var todo = await _context.Todos.FirstOrDefaultAsync(i => id == i.Id && i.AppUserId == user.Id);
+                if (todo == null)
+                    return false;
+                _context.Todos.Remove(todo);
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "{Repo} DeleteById method error", typeof(ITodoRepository));
+                return false;
+            }
+        }
+
+        public virtual async Task<bool> DeleteByIdSoft(int id, AppUser user)
+        {
+            try
+            {
+                var todo = await _context.Todos.FirstOrDefaultAsync(i => id == i.Id && i.AppUserId == user.Id);
+                if (todo == null)
+                    return false;
+                todo.IsDeleted = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "{Repo} DeleteById method error", typeof(ITodoRepository));
+                return false;
+            }
+        }
+
         public virtual async Task<bool> CompleteTodo(int id)
         {
             try

@@ -1,59 +1,62 @@
-﻿
+﻿@model HomeModel
 @{
     ViewData["Title"] = "Home Page";
 }
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <div class="text-center">
-    <h1 class="display-4">Welcome to Note App</h1>
-    <p>
-    <a asp-controller="Account" asp-action="Register" >Register</a> and start to use app.
-    </p>
-    </div>
+        <div class="text-center">
+        <h1 class="display-4">Welcome to Note App</h1>
+        <p>
+        <a asp-controller="Account" asp-action="Register" >Register</a> and start to use app.
+        </p>
+        </div>
 }
 else
 {
     <div>
-    @*<form>
-        <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="alert alert-success" role="alert">
+            @Model.Todos.Count() items are showing.
         </div>
-        </form>*@
+        @*<form>
+            <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>*@
+        @if (Model.Todos.Any())
+        {
+            foreach (var todo in Model.Todos)
+            {
+                <div class="card mb-2">
+                    @if (@todo.IsCompleted)
+                    {
+                        <div class="card-header">
+                            <span class="text-success">Completed</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-header">
+                            <span class="text-danger">Not completed</span>
+                        </div>
 
-        <div class="card mb-2">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn float-end btn-primary">Details</a>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn float-end btn-primary">Details</a>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn float-end btn-primary">Details</a>
-            </div>
-        </div>
+                    }
 
-
+                    <div class="card-body">
+                        <h5 class="card-title">@todo.Title</h5>
+                        <p class="card-text">@todo.Content</p>
+                        <a asp-action="Details" asp-controller="Todo" asp-route-id="@todo.Id" class="btn float-end btn-primary">Details</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                You don't have any todo.
+            </div>
+        }
     </div>
 
 }
